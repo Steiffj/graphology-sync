@@ -23,7 +23,7 @@ interface GraphSyncOptions {
   includeEdgeAttributes: (keyof Attributes)[];
 }
 
-const SYNC_OPTIONS_DEFAULT: GraphSyncOptions = {
+const SYNC_OPTIONS_NONE: GraphSyncOptions = {
   sleepEventsSource: [],
   sleepEventsTarget: [],
   mergeNode: [],
@@ -39,7 +39,7 @@ const SYNC_OPTIONS_DEFAULT: GraphSyncOptions = {
 };
 
 const SYNC_OPTIONS_ALL: GraphSyncOptions = {
-  ...SYNC_OPTIONS_DEFAULT,
+  ...SYNC_OPTIONS_NONE,
   mergeNode: [() => true],
   mergeEdge: [() => true]
 };
@@ -55,7 +55,7 @@ const SYNC_OPTIONS_REASONABLE_SLEEP_EVENTS: Readonly<(keyof GraphEvents)[]> = [
 
 const sync = (sourceGraph: Graph, targetGraph: Graph, options: Partial<GraphSyncOptions>) => {
   const opt: GraphSyncOptions = {
-    ...SYNC_OPTIONS_DEFAULT,
+    ...SYNC_OPTIONS_NONE,
     ...options
   };
 
@@ -171,4 +171,4 @@ const getGraphEventListeners = (graph: Graph, events: (keyof GraphEvents)[]) =>
     {} as { [Event in keyof GraphEvents]: GraphEvents[Event][] }
   );
 
-export { sync, GraphSyncOptions, SYNC_OPTIONS_ALL, SYNC_OPTIONS_DEFAULT, SYNC_OPTIONS_REASONABLE_SLEEP_EVENTS };
+export { sync, GraphSyncOptions, SYNC_OPTIONS_ALL, SYNC_OPTIONS_NONE, SYNC_OPTIONS_REASONABLE_SLEEP_EVENTS };
